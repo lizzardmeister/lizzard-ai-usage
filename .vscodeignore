@@ -1,0 +1,10 @@
+.git/
+.vscode/
+.npm-cache/
+node_modules/
+scripts/
+installer-versions/
+test/
+AGENTS.md
+*.vsix
+*.log

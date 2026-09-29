@@ -1,0 +1,96 @@
+{
+  "name": "lizzard-ai-usage",
+  "displayName": "lizzard AI Usage",
+  "description": "Track Codex, Claude Code, and GitHub Copilot usage in the VS Code status bar.",
+  "icon": "images/icon.png",
+  "version": "0.3.4",
+  "publisher": "lizzardmeister",
+  "license": "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lizzardmeister/lizzard-ai-usage.git"
+  },
+  "private": true,
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "extensionKind": ["ui"],
+  "categories": [
+    "Other"
+  ],
+  "keywords": ["ai", "usage", "codex", "quota", "status bar"],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "aiUsage.refresh",
+        "title": "AI Usage: Refresh"
+      },
+      {
+        "command": "aiUsage.configure",
+        "title": "AI Usage: Configurar"
+      },
+      {
+        "command": "aiUsage.selectSource",
+        "title": "AI Usage: Select Source"
+      },
+      {
+        "command": "aiUsage.setCodexPath",
+        "title": "AI Usage: Definir caminho do Codex CLI"
+      },
+      {
+        "command": "aiUsage.setRefreshInterval",
+        "title": "AI Usage: Definir intervalo de atualização"
+      },
+      {
+        "command": "aiUsage.setGitHubCopilotToken",
+        "title": "AI Usage: Set GitHub Copilot Token"
+      },
+      {
+        "command": "aiUsage.clearGitHubCopilotToken",
+        "title": "AI Usage: Clear GitHub Copilot Token"
+      },
+      {
+        "command": "aiUsage.setCopilotMonthlyCredits",
+        "title": "AI Usage: Definir Créditos Mensais do Copilot"
+      },
+      {
+        "command": "aiUsage.configureClaudeCode",
+        "title": "AI Usage: Configurar Claude Code"
+      }
+    ],
+    "configuration": {
+      "title": "AI Usage",
+      "properties": {
+        "aiUsage.codexPath": {
+          "type": "string",
+          "default": "",
+          "description": "Optional Codex CLI executable path. By default, use the CLI bundled with the Codex extension or find codex on PATH."
+        },
+        "aiUsage.refreshIntervalSeconds": {
+          "type": "integer",
+          "default": 600,
+          "minimum": 30,
+          "description": "How often to fetch usage limits from the selected AI source, in seconds. The default is 10 minutes."
+        },
+        "aiUsage.copilotMonthlyCredits": {
+          "type": "number",
+          "default": 0,
+          "minimum": 0,
+          "description": "Monthly GitHub Copilot AI credit allowance. Set this to the total shown in your GitHub plan; zero displays ? because the billing usage API does not return the allowance."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "test": "node --test --test-isolation=none",
+    "check": "node --check src/appServerClient.js && node --check src/usage.js && node --check src/sourceResolver.js && node --check src/providers/codex.js && node --check src/providers/claudeCode.js && node --check src/providers/claudeStatuslineCapture.js && node --check src/providers/githubCopilot.js && node --check src/extension.js && node --check scripts/package.js && node --test --test-isolation=none",
+    "package": "node scripts/package.js"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^4.0.0"
+  }
+}
